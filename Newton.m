@@ -1,13 +1,11 @@
-function value = Newton(f, a, b)
-  pkg load symbolic
-  syms x;
-  dif = diff(f);
-  d = function_handle(dif);
-  arr(1) =  (a+b)/2;
-  f = function_handle(f);
-
-  for i = 2:20
-   arr(i) =  (arr(i-1) - (f(arr(i-1))/d(arr(i-1))));
-  endfor
-  value = [arr'];
+function newton()
+  f = @(x) x^2-9;
+  g = @(x) 2*x;
+  eps = 1.0E-6;
+  a=5;
+  while(abs(f(a))>eps)
+    a=a-f(a)/g(a);
+  endwhile
+  printf("%f\n",a);
 endfunction
+
