@@ -1,4 +1,4 @@
-function value = False(f, A, B)
+function value = FalsePosition(f, A, B)
   c(1) = (A(1)* f(B(1)) - B(1) * f(A(1)))/(f(B(1)) - f(A(1)));
   fa(1) = f(A(1));
   fb(1) = f(B(1));
