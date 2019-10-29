@@ -1,25 +1,18 @@
-function value = FalsePosition(f, A, B)
-  c(1) = (A(1)* f(B(1)) - B(1) * f(A(1)))/(f(B(1)) - f(A(1)));
-  fa(1) = f(A(1));
-  fb(1) = f(B(1));
-  fc(1) = f(c(1));
-  
-  for i = 2:20
-    
-    if fa(i-1)*fc(i-1) < 0 
-      B(i) = c(i-1);
-      A(i) = A(i-1);
-    else
-      A(i) = c(i-1);
-      B(i) = B(i-1);
-    endif
-    
-    fa(i) = f(A(i));
-    fb(i) = f(B(i));
-    c(i) = (A(i)* f(B(i)) - B(i) * f(A(i)))/(f(B(i)) - f(A(i)));
-    fc(i) = f(c(i));
-    
-  endfor
-  value = [A' B' fa' fb' c' fc'];
-  
-endfunction
+f=@(x)  x^2-9;
+a=input("enter x1: ");
+b=input("enter x1: ");
+eps = 1.0E-6;
+if(f(a)*f(b)>0)
+  printf("No solution");
+endif
+c=a;
+while(abs((f(b) - f(a)))>eps)
+c = (a*f(b) - b*f(a))/ (f(b) - f(a));%false position
+if(abs(f(c))<eps)
+  break;
+endif
+if(f(a)*f(c)<0)b=c;
+else a=c;
+endif
+endwhile
+printf("root %f\n",c);
